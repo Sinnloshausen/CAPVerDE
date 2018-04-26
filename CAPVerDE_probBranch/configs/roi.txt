@@ -1,0 +1,102 @@
+	Has_i(X) in A
+H1: 	------------------------
+	Has_i^all(X) holds for A
+
+	Receive_i,j(S,E) in A		X in {E}
+H2:	-----------------------------------
+	Has_i^all(X) holds for A
+
+	Compute_i(X=T) in A
+H3:	------------------------
+	Has_i^all(X) holds for A
+
+	Spotcheck_i,j(Xk,E) in A
+H4:	------------------------
+	Has_i^one(X) holds for A
+
+	Dep_i(X,{X1,..,Xn})		for all l in [1,n], 	Has_i^all(Xl) holds for A
+H5:	----------------------------------------------
+	Has_i^all(X) holds for A
+
+	None of the preconditions of H1,H2,H3,H4, or H5 holds for X 	or any Xk
+H6:	-----------------------------------------------------------
+	Has_i^none(X) holds for A
+
+	Has_i^none(X) holds for A
+HNO:	-------------------------
+	Has_i^one(X) holds for A
+
+	Has_i^none(X) holds for A
+ST1:	--------------------------
+	notStored_i(X) holds for A
+
+	Has_i(X) in A  or  Compute_i(X=T) in A
+ST2:	--------------------------------------
+	notStored_i(X) holds for A
+
+	Delete_i(X) in A
+ST3:	--------------------------
+	notStored_i(X) holds for A
+
+	Has_i^none(X) holds for A
+SH1:	--------------------------
+	notShared_i(X) holds for A
+
+	Has_i(X) in A  or  Compute_i(X=T) in A
+SH2:	--------------------------------------
+	notShared_i(X) holds for A
+
+	Receive_i,j(S,E) not in A	 X in E
+SH3:	----------------------------------
+	notShared_i(X) holds for A
+
+	Compute_i(X=T) in A
+K1:	--------------------
+	K_i(X=T) holds for A
+
+	Check_i(E) in A		Eq in E
+K2:	-----------------------------
+	K_i(Eq) holds for A
+
+	Verif_i^Proof(Proof_j(E)) in A		Eq in E
+K3:	---------------------------------------------
+	K_i(Eq) holds for A
+
+	Verif_i^Proof(Proof_j(E)) in A		Attest_k(E') in E
+	Trust_i,j in A		Eq in E'
+K4:	-------------------------------------------------------
+	K_i(Eq) holds for A
+
+	Verif_i^Attest(Attestj(E)) in A		Trust_i,j in A
+	Eq in E
+K5:	----------------------------------------------------
+	K_i(Eq) holds for A
+
+	K_i(Eq) holds for A
+KB:	-------------------
+	B_i(Eq) holds for A
+
+	K_i(Eq1) holds for A		K_i(Eq2) holds for A
+Kand:	-----------------------------------------------
+	K_i(Eq1 and Eq2) holds for A
+
+	E deduc_i Eq0		for all Eq in E, K_i(Eq) holds for A
+Kded:	----------------------------------------------------------
+	K_i(Eq0) holds for A
+
+	Spotcheck_i,j(Xk,E) in A		Eq in E
+B:	----------------------------------------
+	B_i(Eq) holds for A
+
+	B_i(Eq1) holds for A		B_i(Eq2) holds for A
+Band:	-----------------------------------------------
+	B_i(Eq1 and Eq2) holds for A
+
+	E deduc_i Eq0		for all Eq in E, B_i(Eq) holds for A
+Bded:	----------------------------------------------------------
+	B_i(Eq0) holds for A
+
+	phi1 holds for A		phi2 holds for A
+Iand:	--------------------------------------
+	(phi1 and phi2) holds for A
+
