@@ -1,7 +1,6 @@
 package architecture;
 
 import java.io.Serializable;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**

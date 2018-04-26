@@ -264,9 +264,9 @@ public boolean equals(Object obj) {
   private String arch2string(Property arch) {
     switch (arch.type) {
       case HAS:
-        return "Has_" + arch.owner + "^" + prob + "(" + arch.var.getName() + ")";
+        return "Has_" + arch.owner + "^" + arch.prob + "(" + arch.var.getName() + ")";
       case KNOWS:
-        return "Knows_" + arch.owner + "^" + prob + "(" + arch.eq.toString() + ")";
+        return "Knows_" + arch.owner + "^" + arch.prob + "(" + arch.eq.toString() + ")";
       case CONJUNCTION:
         return arch2string(arch.st1) + " AND " + arch2string(arch.st2);
       case NEGATION:
@@ -276,7 +276,7 @@ public boolean equals(Object obj) {
       case SHARED:
         return "Shared(" + arch.owner + ", " + arch.var.getName() + ")";
       case NOTSTORED:
-        return "notStored_" + arch.owner + "(" + arch.var.getName() + ", " + bound + ")";
+        return "notStored_" + arch.owner + "(" + arch.var.getName() + ", " + arch.bound + ")";
       default:
         return "";
     }
