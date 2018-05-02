@@ -2,7 +2,7 @@ package architecture;
 
 /**
  * Interface describing either an equation or an attestation.
- * Proofs can be for either type of object.
+ * A Proof can be made for either type of object.
  */
 public interface P {
 

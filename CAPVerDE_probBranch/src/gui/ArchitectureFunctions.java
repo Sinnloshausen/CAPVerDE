@@ -45,9 +45,8 @@ public class ArchitectureFunctions implements Serializable {
 	private static final long serialVersionUID = 9132740232003863055L;
 
 	/**
-	 * The three different case studies.
-	 * Electronic Toll Pricing, Smart Energy Metering,
-	 * and Document Submission and Grading
+	 * Right now, only one case study.
+	 * Smart Energy Metering
 	 */
 	public static enum CaseStudy {
 		SEM;
@@ -134,7 +133,6 @@ public class ArchitectureFunctions implements Serializable {
 				return true;
 			}
 		}
-		// TODO
 		return false;
 	}
 
@@ -208,7 +206,6 @@ public class ArchitectureFunctions implements Serializable {
 		// get the right property
 		for (Property p : pSet) {
 			if (property != null && p.toString().equals(property)) {
-				// TODO do something with the property p
 				// get the trace
 				// DEBUG
 				System.out.println("Property to show trace for: " + p);
@@ -297,7 +294,7 @@ public class ArchitectureFunctions implements Serializable {
 	 *          the name of the variable
 	 */
 	public void addVariable(String name) {
-		Variable var = new Variable(name, false);
+		Variable var = new Variable(name);
 		vSet.add(var);
 		tSet.add(new Term(TermType.ATOM, var, false));
 		// Debug

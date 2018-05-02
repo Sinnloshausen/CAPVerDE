@@ -23,6 +23,13 @@ public class Proof implements Statement, Serializable {
   private Component component;
   private Set<P> pSet;
 
+  /**
+   * The constructor for proofs.
+   * @param component
+   * 			the proving component
+   * @param pSet
+   * 			the set of attestations and equations to prove
+   */
   public Proof(Component component, Set<P> pSet) {
     this.component = component;
     this.pSet = pSet;

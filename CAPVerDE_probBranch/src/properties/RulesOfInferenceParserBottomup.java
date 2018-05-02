@@ -213,6 +213,8 @@ public class RulesOfInferenceParserBottomup implements Parser, Serializable {
 	 * 
 	 * @param statement
 	 *          the statement to verify
+	 * @param recurseDepth
+	 *          the depth of the recursion
 	 * @return true, if the statement is satisfiable with the architecture
 	 */
 	@Override
@@ -502,6 +504,15 @@ public class RulesOfInferenceParserBottomup implements Parser, Serializable {
 		return false;
 	}
 	
+	
+	/**
+	 * Method that returns the maximum number of events that a component accesses a variable before deleting it.
+	 * @param owner
+	 * 			the component
+	 * @param var
+	 * 			the variable
+	 * @return the number of events before delete
+	 */
 	private int counter(Component owner, Variable var) {
 		// TODO test this!
 		int counter = 0;
@@ -544,6 +555,17 @@ public class RulesOfInferenceParserBottomup implements Parser, Serializable {
 		return maxCounter;
 	}
 
+	
+	/**
+	 * Helper method that returns a probability for which the has property holds.
+	 * @param comp
+	 * 			the component
+	 * @param var
+	 * 			the variable
+	 * @param recurseDepth
+	 * 			the depth of the recursion
+	 * @return a probability for which the property holds, 0 if it does not
+	 */
 	private double verifyHasProb(Component comp, Variable var, int recurseDepth) {
 		//TODO better approach
 		double prob = 1;
@@ -557,6 +579,16 @@ public class RulesOfInferenceParserBottomup implements Parser, Serializable {
 		return 0;
 	}
 	
+	/**
+	 * Helper method that returns a probability for which the knows property holds.
+	 * @param comp
+	 * 			the component
+	 * @param eq
+	 * 			the equation
+	 * @param recurseDepth
+	 * 			the depth of the recursion
+	 * @return a probability for which the property holds, 0 if it does not
+	 */
 	private double verifyKnowsProb(Component comp, Equation eq, int recurseDepth) {
 		//TODO better approach
 		double prob = 1;
@@ -665,15 +697,20 @@ public class RulesOfInferenceParserBottomup implements Parser, Serializable {
 	 *          the acting component
 	 * @param var
 	 *          the variable to look for
+	 * @param prob
+	 *          the probability of the dep
+	 * @param recurseDepth
+	 *          the depth of recursion
 	 * @return true, if there is a dep that fits
 	 */
 	private boolean isContainedDep(Component comp, Variable var, double prob, int recurseDepth) {
-		//TODO consider probabilities
+		// consider probabilities
 		for (Dep dep : comp.getDepSet()) {
 			if (dep.getVar().equals(var)) {
 				// check if all required variables are possessed
 				double allProbs = dep.getProb();
 				for (Variable mustHave : dep.getVarSet()) {
+					// multiply along the path
 					allProbs *= verifyHasProb(comp, mustHave, recurseDepth + 1);
 				}
 				if (allProbs > prob) {
@@ -691,21 +728,25 @@ public class RulesOfInferenceParserBottomup implements Parser, Serializable {
 	 *          the acting component
 	 * @param eq
 	 *          the equation to look for
+	 * @param prob
+	 *          the probability of the ded
+	 * @param recurseDepth
+	 *          the depth of recursion
 	 * @return true, if there is a dep that fits
 	 */
 	private boolean isContainedDed(Component comp, Equation eq, double prob, int recurseDepth) {
-		//TODO consider probabilities
+		// consider probabilities
 		for (Deduction ded : comp.getDeductionCapability()) {
 			if (ded.getConclusion().equals(eq)) {
 				// check if all required variables are possessed
 				double allProbs = ded.getProb();
 				for (Equation mustHave : ded.getPremises()) {
+					// multiply along the path
 					allProbs *= verifyKnowsProb(comp, mustHave, recurseDepth + 1);
-					if (allProbs < prob) {
-						break;
-					}
 				}
-				return true;
+				if (allProbs > prob) {
+					return true;
+				}
 			}
 		}
 		return false;

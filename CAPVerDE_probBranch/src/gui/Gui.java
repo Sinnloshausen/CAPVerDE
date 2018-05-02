@@ -1035,7 +1035,7 @@ public class Gui {
     // line knows
     Group knowsProp = new Group(properties, SWT.SHADOW_IN);
     knowsProp.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-    knowsProp.setLayout(new GridLayout(6, false));
+    knowsProp.setLayout(new GridLayout(7, false));
     knowsProp.setText("Knows");
 
     Combo compProp1 = new Combo(knowsProp, SWT.DROP_DOWN | SWT.READ_ONLY);
@@ -1388,7 +1388,6 @@ public class Gui {
   private static void reset() {
     // reset the architecture objects and all properties
     archFunc = new ArchitectureFunctions();
-    // TODO more to be reset?
   }
 
   /**
@@ -1490,9 +1489,6 @@ public class Gui {
       PolylineConnection oldConnection = existsConnection(connection, connections);
       if (oldConnection != null) {
         // add new label to existing one
-        // TODO debug
-        System.out.println(
-            ((org.eclipse.draw2d.Label) oldConnection.getChildren().get(1)).getText());
         String oldText = ((org.eclipse.draw2d.Label) oldConnection.getChildren().get(1)).getText();
         ((org.eclipse.draw2d.Label) oldConnection.getChildren().get(1))
         .setText(oldText + System.lineSeparator() + a.toString());
@@ -1550,13 +1546,6 @@ public class Gui {
     // go through all existing connections end check if there already is one
     // with the same start and end
     for (PolylineConnection currentConnection : connections) {
-      // TODO DEBUG
-      System.out.println("Current");
-      System.out.println(currentConnection.getSourceAnchor().getOwner());
-      System.out.println(currentConnection.getTargetAnchor().getOwner());
-      System.out.println("Target");
-      System.out.println(connection.getSourceAnchor().getOwner());
-      System.out.println(connection.getTargetAnchor().getOwner());
       if (currentConnection.getSourceAnchor().getOwner().equals(
           connection.getSourceAnchor().getOwner()) && currentConnection.getTargetAnchor()
           .getOwner().equals(connection.getTargetAnchor().getOwner())) {
@@ -1591,7 +1580,6 @@ public class Gui {
             // do nothing
             return false;
           case SWT.RETRY:
-            //TODO reset architecture
             reset();
             return true;
           default:
@@ -1627,7 +1615,6 @@ public class Gui {
         try {
           rules.setText(FileReader.readFile("./configs/roi.txt"));
         } catch (IOException e) {
-          // TODO Auto-generated catch block
           e.printStackTrace();
         }
         rules.setToolTipText("The rules of inference.");

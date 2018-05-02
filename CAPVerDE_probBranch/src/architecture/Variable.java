@@ -14,31 +14,16 @@ public class Variable implements Serializable {
 
   // Member variables
   private String name;
-  private boolean encrypted;
 
   /**
    * The complete constructor for variables.
    * 
    * @param name
    *          the name of the variable
-   * @param encrypted
-   *          a flag showing whether the variable is encrypted
-   */
-  public Variable(String name, boolean encrypted) {
-    // default constructor
-    this.name = name;
-    this.encrypted = encrypted;
-  }
-
-  /**
-   * The constructor called for simple variables that are not encrypted.
-   * 
-   * @param name
-   *          the name of the variable
    */
   public Variable(String name) {
-    // no encryption per default
-    this(name, false);
+    // default constructor
+    this.name = name;
   }
 
   @Override
@@ -96,13 +81,5 @@ public class Variable implements Serializable {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public boolean isEncrypted() {
-    return encrypted;
-  }
-
-  public void setEncrypted(boolean encrypted) {
-    this.encrypted = encrypted;
   }
 }

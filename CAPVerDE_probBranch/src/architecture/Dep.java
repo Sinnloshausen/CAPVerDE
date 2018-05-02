@@ -26,6 +26,8 @@ public class Dep implements Serializable {
    *          the variable that can be derived
    * @param varSet
    *          the list of necessary variables for the relation
+   * @param prob
+   * 			the probability of the dependence relation
    */
   public Dep(Variable var, Set<Variable> varSet, double prob) {
     this.var = var;

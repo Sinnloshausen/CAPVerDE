@@ -40,14 +40,14 @@ public class ArchLoader {
 	private static Component HN = new Component("HN");
 	private static Set<Component> cSet1 = Stream.of(SM, MI, Re, HN).collect(Collectors.toCollection(LinkedHashSet::new));
 	// Variables
-	private static Variable readings = new Variable("readings", false);
-	private static Variable k = new Variable("k", false);
-	private static Variable bill = new Variable("bill", false);
-	private static Variable pw = new Variable("pw", false);
-	private static Variable secret = new Variable("secret", false);
-	private static Variable encBill = new Variable("encBill", false);
-	private static Variable encR = new Variable("encR", false);
-	private static Variable ppd = new Variable("ppd", false);
+	private static Variable readings = new Variable("readings");
+	private static Variable k = new Variable("k");
+	private static Variable bill = new Variable("bill");
+	private static Variable pw = new Variable("pw");
+	private static Variable secret = new Variable("secret");
+	private static Variable encBill = new Variable("encBill");
+	private static Variable encR = new Variable("encR");
+	private static Variable ppd = new Variable("ppd");
 	private static Set<Variable> vSet1 = Stream.of(readings, k, bill, pw, secret, encBill, encR, ppd).collect(Collectors.toCollection(LinkedHashSet::new));
 	// Terms
 	private static Term termReadings = new Term(TermType.ATOM, readings, false);

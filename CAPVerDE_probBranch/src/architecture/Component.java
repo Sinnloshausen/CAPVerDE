@@ -30,6 +30,14 @@ public class Component implements Serializable {
 	/**
 	 * The full Constructor typically invoked for an already complete component
 	 * or by the empty constructor in this class.
+	 * @param name
+	 * 			the name of the component
+	 * @param actions
+	 * 			a set of all actions this component can perform
+	 * @param depSet
+	 * 			a set of all dependence relations of this component
+	 * @param deducSet
+	 * 			a set of all deductions of this component
 	 */
 	public Component(String name, Set<Action> actions, Set<Dep> depSet,
 			Set<Deduction> deducSet) {
@@ -63,12 +71,12 @@ public class Component implements Serializable {
 			case HAS:
 				if (action.getVar() != null) {
 					// add the variable that is owned by the component
-					addVar(action.getVar());
+					varSet.add(action.getVar());
 				}
 				break;
 			case COMPUTE:
 				// only add the newly computed variable
-				addVar(action.getEq().getLefthandSide());
+				varSet.add(action.getEq().getLefthandSide());
 				break;
 			default:
 				// nothing to do
@@ -181,18 +189,6 @@ public class Component implements Serializable {
 	}
 
 	/**
-	 * Method that adds a variable to the list if not already contained.
-	 * @param var
-	 *          the variable
-	 */
-	public void addVar(Variable var) {
-		// only add new variables to list
-		if (!varSet.contains(var)) {
-			varSet.add(var);
-		}
-	}
-
-	/**
 	 * Setter method for the equation list that subsequently calls the
 	 * {@link #makeDeduction() makeDeduction()} method.
 	 * @param eqSet
@@ -206,18 +202,6 @@ public class Component implements Serializable {
 	}
 
 	/**
-	 * Method to add an equation to the list if not already contained.
-	 * Also signals the success whether or not the equation was added.
-	 * @param eq
-	 *          the equation to add
-	 * @return    true, if the equation was added, otherwise false
-	 */
-	public boolean addEquation(Equation eq) {
-		// only add new equations
-		return eqSet.add(eq);
-	}
-
-	/**
 	 * Method that add a deduction to the deduction capability.
 	 * Also the conclusion is added to the list of known equations.
 	 * @param deduction
@@ -227,7 +211,7 @@ public class Component implements Serializable {
 		if (!deduction.containsMatchVar()) {
 			if (!deduction.isReflexive() && !deduction.isTooComplex()) {
 				// also add the conclusion to the list of equations
-				addEquation(deduction.getConclusion());
+				eqSet.add(deduction.getConclusion());
 				// regardless of the result, add the deduction
 				deductionCapability.add(deduction);
 			}

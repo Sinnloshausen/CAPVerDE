@@ -74,6 +74,8 @@ public class Term implements Serializable {
 	 *          the first term
 	 * @param t2
 	 *          the second term
+	 * @param t3
+	 *          the third term
 	 * @param matchVar
 	 *          a flag that indicates if the term is only a variable for pattern
 	 *          matching
@@ -220,63 +222,58 @@ public class Term implements Serializable {
 		int result = 1;
 		result = prime * result + ((atom == null) ? 0 : atom.hashCode());
 		result = prime * result + ((funcName == null) ? 0 : funcName.hashCode());
+		result = prime * result + (matchVar ? 1231 : 1237);
 		result = prime * result + ((op == null) ? 0 : op.hashCode());
 		result = prime * result + ((opType == null) ? 0 : opType.hashCode());
 		result = prime * result + ((t1 == null) ? 0 : t1.hashCode());
 		result = prime * result + ((t2 == null) ? 0 : t2.hashCode());
+		result = prime * result + ((t3 == null) ? 0 : t3.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Term other = (Term) obj;
 		if (atom == null) {
-			if (other.atom != null) {
+			if (other.atom != null)
 				return false;
-			}
-		} else if (!atom.equals(other.atom)) {
+		} else if (!atom.equals(other.atom))
 			return false;
-		}
 		if (funcName == null) {
-			if (other.funcName != null) {
+			if (other.funcName != null)
 				return false;
-			}
-		} else if (!funcName.equals(other.funcName)) {
+		} else if (!funcName.equals(other.funcName))
 			return false;
-		}
-		if (op != other.op) {
+		if (matchVar != other.matchVar)
 			return false;
-		}
-		if (opType != other.opType) {
+		if (op != other.op)
 			return false;
-		}
+		if (opType != other.opType)
+			return false;
 		if (t1 == null) {
-			if (other.t1 != null) {
+			if (other.t1 != null)
 				return false;
-			}
-		} else if (!t1.equals(other.t1)) {
+		} else if (!t1.equals(other.t1))
 			return false;
-		}
 		if (t2 == null) {
-			if (other.t2 != null) {
+			if (other.t2 != null)
 				return false;
-			}
-		} else if (!t2.equals(other.t2)) {
+		} else if (!t2.equals(other.t2))
 			return false;
-		}
-		if (type != other.type) {
+		if (t3 == null) {
+			if (other.t3 != null)
+				return false;
+		} else if (!t3.equals(other.t3))
 			return false;
-		}
+		if (type != other.type)
+			return false;
 		return true;
 	}
 
@@ -427,7 +424,6 @@ public class Term implements Serializable {
 	 * 		  the depth
 	 */
 	private int checkDepth(Term term) {
-		// TODO test this
 		int d = 0;
 		if (term == null) {
 			return d;

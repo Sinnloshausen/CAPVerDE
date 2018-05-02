@@ -105,14 +105,16 @@ public boolean equals(Object obj) {
    *          the type of property
    * @param owner
    *          the component the property is about
-   * @param scope
-   *          the scope of the HAS property
+   * @param prob
+   *          the probability of the property (HAS/KNOWS)
+   * @param bound
+   *          the bound of the property (NOTSTORED)
    * @param var
-   *          the variable of the HAS property
+   *          the variable of the property (HAS/NOTSTORED/NOTSHARED)
    * @param eq
    *          the equation of the KNOWS/BELIEVES property
    * @param st1
-   *          the first property of the conjunction
+   *          the first property of the conjunction or negation
    * @param st2
    *          the second property of the conjunction
    */
@@ -164,8 +166,8 @@ public boolean equals(Object obj) {
    *          the type of property
    * @param owner
    *          the component the property is about
-   * @param scope
-   *          the scope of the HAs property
+   * @param prob
+   *          the probability of the HAS property
    * @param var
    *          the variable of the HAS property
    */
@@ -181,6 +183,8 @@ public boolean equals(Object obj) {
    *          the type of property
    * @param owner
    *          the component the property is about
+   * @param prob
+   *          the probability of the KNOWS property
    * @param eq
    *          the equation of the KNOWS property
    */
@@ -218,7 +222,7 @@ public boolean equals(Object obj) {
   }
 
   /**
-   * Constructor called for type = shared / notshared.
+   * Constructor called for type = notshared.
    * 
    * @param type
    *          the type of property

@@ -129,7 +129,7 @@ public class GuiLoader {
       URL url = swtJar.toURI().toURL();
       // load the swt lib in runtime
       //TODO java 9 approach
-      //TODO okay, just make jarsfor each distribution, i guess
+      //TODO okay, just make jars for each distribution, i guess
       ClassLoader parent = ClassLoader.getPlatformClassLoader();
       URLClassLoader loader = new URLClassLoader(new URL[] {url}, parent);
       //URLClassLoader urlClassLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();

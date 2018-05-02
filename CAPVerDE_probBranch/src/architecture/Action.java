@@ -46,8 +46,18 @@ public class Action implements Serializable {
 	 *          an equation that computed or transmitted
 	 * @param comPartner
 	 *          the component that is interacted with
+	 * @param varSet
+	 * 			a set of variables that is transmitted
 	 * @param eqSet
-	 *          a list of equations that is transmitted
+	 *          a set of equations that is transmitted
+	 * @param stSet
+	 *          a set of statements that is transmitted
+	 * @param eqSet
+	 *          a set of equations that is transmitted
+	 * @param pro
+	 *          a proof that is transmitted
+	 * @param att
+	 *          an attestation that is transmitted
 	 */
 	public Action(ActionType action, Component component, Variable var, Equation eq,
 			Component comPartner, Set<Variable> varSet, Set<Equation> eqSet,
@@ -186,82 +196,60 @@ public class Action implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Action other = (Action) obj;
-		if (action != other.action) {
+		if (action != other.action)
 			return false;
-		}
 		if (att == null) {
-			if (other.att != null) {
+			if (other.att != null)
 				return false;
-			}
-		} else if (!att.equals(other.att)) {
+		} else if (!att.equals(other.att))
 			return false;
-		}
 		if (comPartner == null) {
-			if (other.comPartner != null) {
+			if (other.comPartner != null)
 				return false;
-			}
-		} else if (!comPartner.equals(other.comPartner)) {
+		} else if (!comPartner.equals(other.comPartner))
 			return false;
-		}
 		if (component == null) {
-			if (other.component != null) {
+			if (other.component != null)
 				return false;
-			}
-		} else if (!component.equals(other.component)) {
+		} else if (!component.equals(other.component))
 			return false;
-		}
 		if (eq == null) {
-			if (other.eq != null) {
+			if (other.eq != null)
 				return false;
-			}
-		} else if (!eq.equals(other.eq)) {
+		} else if (!eq.equals(other.eq))
 			return false;
-		}
 		if (eqSet == null) {
-			if (other.eqSet != null) {
+			if (other.eqSet != null)
 				return false;
-			}
-		} else if (!eqSet.equals(other.eqSet)) {
+		} else if (!eqSet.equals(other.eqSet))
 			return false;
-		}
 		if (pro == null) {
-			if (other.pro != null) {
+			if (other.pro != null)
 				return false;
-			}
-		} else if (!pro.equals(other.pro)) {
+		} else if (!pro.equals(other.pro))
 			return false;
-		}
 		if (stSet == null) {
-			if (other.stSet != null) {
+			if (other.stSet != null)
 				return false;
-			}
-		} else if (!stSet.equals(other.stSet)) {
+		} else if (!stSet.equals(other.stSet))
 			return false;
-		}
 		if (var == null) {
-			if (other.var != null) {
+			if (other.var != null)
 				return false;
-			}
-		} else if (!var.equals(other.var)) {
+		} else if (!var.equals(other.var))
 			return false;
-		}
 		if (varSet == null) {
-			if (other.varSet != null) {
+			if (other.varSet != null)
 				return false;
-			}
-		} else if (!varSet.equals(other.varSet)) {
+		} else if (!varSet.equals(other.varSet))
 			return false;
-		}
 		return true;
 	}
 

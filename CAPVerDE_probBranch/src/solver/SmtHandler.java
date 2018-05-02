@@ -88,9 +88,6 @@ public class SmtHandler implements Serializable {
     // add the line for the saturability check
     addLineSmt(Command.CHECK, null, null, null, null, null);
 
-    // TODO debug
-    // System.out.println(buffer);
-
     SolverHandler solv = new SolverHandler();
     if (!solv.runSolver(buffer, property)) {
       addLineSmt(Command.UNSAT, null, null, null, null, null);

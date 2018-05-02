@@ -31,13 +31,16 @@ public class Deduction implements Serializable {
 
 	/**
 	 * The Constructor for deductions.
-	 * 
+	 * @param type
+	 * 			the type of deduction
 	 * @param premises
 	 *          the premises needed to deduce the conclusion
 	 * @param conclusion
 	 *          the conclusion that can be deduced with the given premises
 	 * @param name
 	 *          a name for the deduction
+	 * @param prob
+	 * 			the probability of this deduction
 	 */
 	public Deduction(Type type, Set<Equation> premises, Equation conclusion, String name, double prob) {
 		this.type = type;
@@ -86,7 +89,6 @@ public class Deduction implements Serializable {
 		}
 	}
 
-	// TODO toString() method
 	@Override
 	public String toString() {
 		return name + "^" + prob + ": " + premises + " -> " + conclusion;
@@ -96,11 +98,10 @@ public class Deduction implements Serializable {
 	 * Checks if the deduction contains match variables and therefore is no valid
 	 * "explicit" deduction.
 	 * 
-	 * @return true, if there is no match variable in this deduction
+	 * @return true, if there is a match variable in this deduction
 	 */
 	public boolean containsMatchVar() {
 		// check all equations for matchVars
-		// TODO implement
 		for (Equation eq : premises) {
 			// go through the premises and check if an equation contains a matchVar
 			if (eq.containsMatchVar()) {
@@ -125,9 +126,13 @@ public class Deduction implements Serializable {
 		return conclusion.isReflexive();
 	}
 
+	/**
+	 * Checks if the dedction conclusion is too complex.
+	 * @return true, if the complexity is > 3
+	 */
 	public boolean isTooComplex() {
-		// check if the deduction contains equation with a depth > 3
-		return conclusion.getDepth() > 3;
+		// check if the conclusion is complex, i.e., has a complexity greater than 3
+		return conclusion.isComplex();
 	}
 
 	// getter and setter methods

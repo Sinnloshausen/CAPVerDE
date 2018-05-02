@@ -80,6 +80,8 @@ public class RulesOfInferenceParserTopdown implements Parser, Serializable {
 	 * 
 	 * @param statement
 	 *          the statement to verify
+	 * @param recurseDepth
+	 *          the depth of recursion
 	 * @return true, if the statement is satisfiable with the architecture
 	 */
 	@Override
@@ -285,6 +287,8 @@ public class RulesOfInferenceParserTopdown implements Parser, Serializable {
 	 *          the owner of the variable
 	 * @param var
 	 *          the variable
+	 * @param prob
+	 *          the probability
 	 * @return true, if the variable is already in the property list (with the
 	 *         right owner)
 	 */
@@ -307,8 +311,8 @@ public class RulesOfInferenceParserTopdown implements Parser, Serializable {
 	 *          the owner of the statement
 	 * @param eq
 	 *          the equation
-	 * @param type
-	 *          knows
+	 * @param prob
+	 *          the probability
 	 * @return true, if the equation is known by the owner in the
 	 *         property list
 	 */

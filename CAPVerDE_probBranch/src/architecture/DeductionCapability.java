@@ -22,7 +22,7 @@ public class DeductionCapability implements Serializable {
    * @param comp
    *          the component
    * @param deducSet
-   *          the deduction the component is capable of
+   *          the deductions the component is capable of
    */
   public DeductionCapability(Component comp, Set<Deduction> deducSet) {
     this.comp = comp;
