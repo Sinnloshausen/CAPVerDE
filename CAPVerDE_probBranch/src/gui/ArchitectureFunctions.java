@@ -637,6 +637,8 @@ public class ArchitectureFunctions implements Serializable {
 	 *          the name of the variable that can be deduced
 	 * @param varSet
 	 *          a Set of the name of variables that have to be known
+	 * @param probability
+	 *          the probability of the dependence relation
 	 */
 	public void addDep(String comp, String var, Set<String> varSet, String probability) {
 		Component component = null;
@@ -712,6 +714,8 @@ public class ArchitectureFunctions implements Serializable {
 	 *          a Set of the names of premise equations
 	 * @param conclusion
 	 *          the name of the conclusion equation
+	 * @param probability
+	 *          the probability of the dependence relation
 	 */
 	public void addDeduc(String name, Set<String> premises, String conclusion, String probability) {
 		Equation equation = null;
@@ -813,10 +817,10 @@ public class ArchitectureFunctions implements Serializable {
 	 * Method that adds a 'has' property to the architecture's Set.
 	 * @param comp
 	 *          the name of the component
-	 * @param scope
-	 *          the name of the scope all/one/none
 	 * @param var
 	 *          the name of the variable that the component should have
+	 * @param probability
+	 *          the probability of the dependence relation
 	 */
 	public void addPropHas(String comp, String var, String probability) {
 		Component component = null;
@@ -852,6 +856,8 @@ public class ArchitectureFunctions implements Serializable {
 	 *          the name of the component
 	 * @param eq
 	 *          the name of the equation to be known
+	 * @param probability
+	 *          the probability of the property
 	 */
 	public void addPropKnows(String comp, String eq, String probability) {
 		Component component = null;
@@ -915,6 +921,8 @@ public class ArchitectureFunctions implements Serializable {
 	 *          the name of the component
 	 * @param var
 	 *          the name of the variable that should not be stored
+	 * @param b
+	 *          the bound of the property
 	 */
 	public void addPropNotStored(String comp, String var, String b) {
 		Component component = null;

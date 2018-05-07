@@ -5,6 +5,8 @@ public class EnumHelper {
   /**
    * Static helper method that checks if a string is a valid enum option.
    * 
+   * @param <T>
+   * 			the generic type for the enum
    * @param enumerator
    *          the enum class
    * @param value

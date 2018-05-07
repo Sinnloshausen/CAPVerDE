@@ -170,6 +170,8 @@ public class Term implements Serializable {
 	 *          the type of operator: binary
 	 * @param op
 	 *          the explicit binary operator
+	 * @param funcName
+	 *          the name of the function
 	 * @param t1
 	 *          the first term
 	 * @param t2
@@ -194,6 +196,8 @@ public class Term implements Serializable {
 	 *          the type of operator: binary
 	 * @param op
 	 *          the explicit binary operator
+	 * @param funcName
+	 *          the name of the function
 	 * @param t1
 	 *          the first term
 	 * @param t2

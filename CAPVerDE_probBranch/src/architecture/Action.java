@@ -52,8 +52,6 @@ public class Action implements Serializable {
 	 *          a set of equations that is transmitted
 	 * @param stSet
 	 *          a set of statements that is transmitted
-	 * @param eqSet
-	 *          a set of equations that is transmitted
 	 * @param pro
 	 *          a proof that is transmitted
 	 * @param att

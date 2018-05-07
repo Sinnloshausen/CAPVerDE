@@ -6,7 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * Objects that represent equations as in a=b, a&ltb, etc.
+ * Objects that represent equations as in a=b, a&lt;b, etc.
  */
 public class Equation implements P, Serializable {
 
@@ -17,7 +17,7 @@ public class Equation implements P, Serializable {
 
 	/**
 	 * Type of equations: simple relations like 'a=b',
-	 * or conjunctions like 'a=b and c&gtd'.
+	 * or conjunctions like 'a=b and c&lt;d'.
 	 */
 	public enum Type {
 		RELATION, CONJUNCTION, EMPTY

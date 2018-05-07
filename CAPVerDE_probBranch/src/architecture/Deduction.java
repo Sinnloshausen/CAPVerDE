@@ -127,8 +127,8 @@ public class Deduction implements Serializable {
 	}
 
 	/**
-	 * Checks if the dedction conclusion is too complex.
-	 * @return true, if the complexity is > 3
+	 * Checks if the deduction conclusion is too complex.
+	 * @return true, if the complexity is &gt; 3
 	 */
 	public boolean isTooComplex() {
 		// check if the conclusion is complex, i.e., has a complexity greater than 3

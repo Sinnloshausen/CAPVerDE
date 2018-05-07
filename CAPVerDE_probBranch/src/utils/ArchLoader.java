@@ -182,6 +182,11 @@ public class ArchLoader {
 
 	/**
 	 * Method to load one of the case studies.
+	 * 
+	 * @param archFunc
+	 * 			the architecture functions object that holds all information about the architecture
+	 * @param example
+	 * 			the case study to load
 	 */
 	public static void load(ArchitectureFunctions archFunc, CaseStudy example) {
 		// set all the necessary list of the right architecture

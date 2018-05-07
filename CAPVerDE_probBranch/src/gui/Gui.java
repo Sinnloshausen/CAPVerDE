@@ -1566,6 +1566,7 @@ public class Gui {
    *          the type of message
    * @param message
    *          the message itself
+   * @return false, if the message box was canceled
    */
   public static boolean showMessage(MessageType type, String message) {
     switch (type) {

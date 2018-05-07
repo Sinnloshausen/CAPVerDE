@@ -1,7 +1,7 @@
 package utils;
 
 /**
- * Class that "cleans" string for SMT use, i.e., replaces () by &lt&gt.
+ * Class that "cleans" string for SMT use, i.e., replaces () by &lt;&gt;.
  */
 public class SmtCleanup {
 
@@ -12,7 +12,7 @@ public class SmtCleanup {
   }
 
   /**
-   * Method to remove round brackets and replaces these with <> due to the
+   * Method to remove round brackets and replaces these with {@code <>} due to the
    * nature of SMT's reserved characters.
    * 
    * @param input

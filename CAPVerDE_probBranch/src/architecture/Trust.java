@@ -59,6 +59,8 @@ public class Trust {
 	 *          the first component
 	 * @param comp2
 	 *          the second component
+	 * @param varSet
+	 *          the (potentially empty) set of variables
 	 * @return    true, if the four components are pairwise equal
 	 */
 	public boolean isEqual(Component comp1, Component comp2, Set<Variable> varSet) {
