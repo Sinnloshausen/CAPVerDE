@@ -53,6 +53,7 @@ public class RulesOfInferenceParserTopdown implements Parser, Serializable {
 		// collection of equations
 		arch.setAllProperties(propertyList);
 		arch.collectEquations();
+		arch.collectStatements();
 
 		// already produce the statements based on the architecture
 		// Apply the rules a second time to also apply the deduction properties

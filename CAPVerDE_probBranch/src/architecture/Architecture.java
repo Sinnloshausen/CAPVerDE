@@ -28,6 +28,7 @@ public class Architecture implements Serializable {
   private List<Property> allProperties;
   private List<Variable> allVariables;
   private List<Equation> allEquations;
+  private List<Statement> allStatements;
 
   /**
    * The full Constructor of an architecture that is typically only invoked for
@@ -53,6 +54,7 @@ public class Architecture implements Serializable {
     allProperties = new ArrayList<Property>();
     allVariables = new ArrayList<Variable>();
     allEquations = new ArrayList<Equation>();
+    allStatements = new ArrayList<Statement>();
     // Collect a list of all actions in the architecture
     allActions = new ArrayList<Action>();
     collectActions();
@@ -92,7 +94,7 @@ public class Architecture implements Serializable {
   }
 
   /**
-   * Helper method to collect all different equations in a list.
+   * Helper method to collect all different equations in the architecture.
    */
   public void collectEquations() {
     // go through all properties and extract the equations
@@ -100,6 +102,29 @@ public class Architecture implements Serializable {
       switch (prop.getType()) {
         case KNOWS:
           addEquation(prop.getEq());
+          break;
+        default:
+          // do nothing
+          break;
+      }
+    }
+    // also share this list of equations with its components
+    for (Component comp : compList) {
+      comp.setEqSet(new LinkedHashSet<Equation>(allEquations));
+    }
+  }
+  
+  /**
+   * Helper method to collect all different statements in the architecture.
+   */
+  public void collectStatements() {
+    // go through all events and extract the statements
+    for (Action action : allActions) {
+      switch (action.getAction()) {
+        case RECEIVE:
+          for (Statement st : action.getStSet()) {
+        	  addStatement(st);
+          }
           break;
         default:
           // do nothing
@@ -141,6 +166,19 @@ public class Architecture implements Serializable {
         // collect all the variables in a list
         addVariable(var);
       }
+    }
+  }
+  
+  /**
+   * Method that adds a statement to the list if not already contained.
+   * 
+   * @param stmnt
+   *          the statement to add
+   */
+  public void addStatement(Statement stmnt) {
+    // only add new equations
+    if ((stmnt != null) && (!allStatements.contains(stmnt))) {
+      allStatements.add(stmnt);
     }
   }
 
@@ -229,6 +267,10 @@ public class Architecture implements Serializable {
 
   public void setAllProperties(List<Property> allProperties) {
     this.allProperties = allProperties;
+  }
+
+  public List<Statement> getAllStatements() {
+    return allStatements;
   }
 
 }

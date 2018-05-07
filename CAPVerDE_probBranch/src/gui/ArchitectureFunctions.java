@@ -24,7 +24,6 @@ import architecture.Variable;
 import gui.Gui.MessageType;
 import properties.Property;
 import properties.RulesOfInferenceParserBottomup;
-import properties.RulesOfInferenceParserTopdown;
 import utils.SaveLoadArch;
 import utils.TraceBuffer;
 import utils.ArchLoader;
@@ -88,7 +87,7 @@ public class ArchitectureFunctions implements Serializable {
 	private Set<DeductionCapability> dedSet;
 	private Set<Deduction> deducs;
 	private Architecture arch;
-	private RulesOfInferenceParserTopdown parserTd;
+	//private RulesOfInferenceParserTopdown parserTd;
 	private RulesOfInferenceParserBottomup parserBu;
 	private Set<Property> pSet;
 
@@ -127,11 +126,8 @@ public class ArchitectureFunctions implements Serializable {
 		}
 		// verify the property
 		if (property != null) {
-			if (!parserBu.verifyStatement(property, 0)) {
-				return parserTd.verifyStatement(property, 0);
-			} else {
-				return true;
-			}
+			//TODO use new parser when finished
+			return parserBu.verifyStatement(property, 0);
 		}
 		return false;
 	}
@@ -181,7 +177,7 @@ public class ArchitectureFunctions implements Serializable {
 		// create arch
 		arch = new Architecture(cSet, interComponentActions, trustSet);
 		// create the verifier
-		parserTd = new RulesOfInferenceParserTopdown(arch);
+		//parserTd = new RulesOfInferenceParserTopdown(arch);
 		parserBu = new RulesOfInferenceParserBottomup(arch);
 	}
 
