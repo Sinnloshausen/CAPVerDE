@@ -24,6 +24,7 @@ import architecture.Variable;
 import gui.Gui.MessageType;
 import properties.Property;
 import properties.RulesOfInferenceParserBottomup;
+import solver.PrologHandler;
 import utils.SaveLoadArch;
 import utils.TraceBuffer;
 import utils.ArchLoader;
@@ -89,6 +90,7 @@ public class ArchitectureFunctions implements Serializable {
 	private Architecture arch;
 	//private RulesOfInferenceParserTopdown parserTd;
 	private RulesOfInferenceParserBottomup parserBu;
+	private PrologHandler prologSolver;
 	private Set<Property> pSet;
 
 	/**
@@ -126,6 +128,8 @@ public class ArchitectureFunctions implements Serializable {
 		}
 		// verify the property
 		if (property != null) {
+			//TODO maybe use prolog
+			boolean res = prologSolver.verify(property);
 			//TODO use new parser when finished
 			return parserBu.verifyStatement(property, 0);
 		}
@@ -179,6 +183,7 @@ public class ArchitectureFunctions implements Serializable {
 		// create the verifier
 		//parserTd = new RulesOfInferenceParserTopdown(arch);
 		parserBu = new RulesOfInferenceParserBottomup(arch);
+		prologSolver = new PrologHandler(arch);
 	}
 
 	/**

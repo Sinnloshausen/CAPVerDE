@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"architecture"},{"l":"diagrams"},{"l":"gui"},{"l":"properties"},{"l":"solver"},{"l":"utils"}]
+packageSearchIndex = [{"l":"utils"}]

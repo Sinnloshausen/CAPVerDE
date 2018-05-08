@@ -1,5 +1,8 @@
 package utils;
 
+/**
+ * This class only provides a static method that helps with identifying enumeration options.
+ */
 public class EnumHelper {
 
   /**
