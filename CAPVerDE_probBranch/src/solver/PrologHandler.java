@@ -1,6 +1,12 @@
 package solver;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import architecture.Action;
 import architecture.Architecture;
+import architecture.Equation;
+import architecture.Variable;
 import gnu.prolog.io.TermWriter;
 import gnu.prolog.term.AtomTerm;
 import gnu.prolog.term.CompoundTerm;
@@ -14,6 +20,7 @@ import gnu.prolog.vm.Interpreter.Goal;
 import gnu.prolog.vm.PrologCode;
 import gnu.prolog.vm.PrologException;
 import properties.Property;
+import utils.FileHandler;
 
 public class PrologHandler implements Handler {
 
@@ -53,12 +60,116 @@ public class PrologHandler implements Handler {
 
 	private String parseArch(Architecture arch) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Term> facts = new ArrayList<Term>();
+		for (Action a : arch.getAllActions()) {
+			// parse the actions ins the architecture, one after the other
+			facts.add(parseAction(a));
+		}
+
+		//TODO replace generic hard-coded return
+		String factsString = write2string(facts);
+		FileHandler file = new FileHandler("C:/Users/kaiba/OneDrive/Dokumente/Prolog", "facts.pl");
+		file.writeFile(factsString.getBytes());
+		return "C:/Users/kaiba/OneDrive/Dokumente/Prolog/facts";
+	}
+
+	private String write2string(List<Term> facts) {
+		// TODO test this!
+		String string = "";
+		for (Term t : facts) {
+			string += t.toString() + "." + System.lineSeparator();
+		}
+		return string;
+	}
+
+	private Term parseAction(Action a) {
+		// TODO finish
+		Term term = null;
+		switch (a.getAction()) {
+		case CHECK:
+			//TODO test this
+			Term[] eqargs = new Term[a.getEqSet().size()];
+			int i = 0;
+			for (Equation e : a.getEqSet()) {
+				eqargs[i] = AtomTerm.get(e.getName());
+				i++;
+			}
+			Term checklist = new CompoundTerm(AtomTerm.get("."), eqargs);
+			Term[] argsCh = {AtomTerm.get(a.getComponent().toString()), checklist};
+			term = new CompoundTerm(AtomTerm.get("check"), argsCh);
+			break;
+		case COMPUTE:
+			//TODO also add left-hand-side and contains as facts
+			Term[] argsCo = {AtomTerm.get(a.getComponent().toString()), AtomTerm.get(a.getEq().getName())};
+			term = new CompoundTerm(AtomTerm.get("compute"), argsCo);
+			break;
+		case DELETE:
+			Term[] argsD = {AtomTerm.get(a.getComponent().toString()), AtomTerm.get(a.getVar().getName())};
+			term = new CompoundTerm(AtomTerm.get("delete"), argsD);
+			break;
+		case HAS:
+			Term[] argsH = {AtomTerm.get(a.getComponent().toString()), AtomTerm.get(a.getVar().getName())};
+			term = new CompoundTerm(AtomTerm.get("has"), argsH);
+			break;
+		case RECEIVE:
+			//TODO test this
+			Term[] varargs = new Term[a.getVarSet().size()];
+			int j = 0;
+			for (Variable v : a.getVarSet()) {
+				varargs[j] = AtomTerm.get(v.toString());
+				j++;
+			}
+			Term varlist = new CompoundTerm(AtomTerm.get("."), varargs);
+			Term[] argsR = {AtomTerm.get(a.getComponent().toString()), AtomTerm.get(a.getComPartner().toString()), varlist};
+			term = new CompoundTerm(AtomTerm.get("receive"), argsR);
+			break;
+		case TRUST:
+			Term[] argsT = {AtomTerm.get(a.getComponent().toString()), AtomTerm.get(a.getComPartner().toString())};
+			term = new CompoundTerm(AtomTerm.get("trust"), argsT);
+			break;
+		case VERIF_A:
+			Term[] argsVa = {AtomTerm.get(a.getComponent().toString()), AtomTerm.get(a.getAtt().getName())};
+			term = new CompoundTerm(AtomTerm.get("verif"), argsVa);
+			break;
+		case VERIF_P:
+			Term[] argsVp = {AtomTerm.get(a.getComponent().toString()), AtomTerm.get(a.getPro().getName())};
+			term = new CompoundTerm(AtomTerm.get("verif"), argsVp);
+			break;
+		default:
+			break;
+		}
+		
+		return term;
 	}
 
 	private Term parseProperty(Property prop) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO test
+		Term term = null;
+		switch (prop.getType()) {
+		case CONJUNCTION:
+			break;
+		case HAS:
+			Term[] argsH = {AtomTerm.get(prop.getOwner().toString()), AtomTerm.get(prop.getVar().toString()), new FloatTerm(prop.getProb())};
+			term = new CompoundTerm(AtomTerm.get("hasProp"), argsH);
+			break;
+		case KNOWS:
+			Term[] argsK = {AtomTerm.get(prop.getOwner().toString()), AtomTerm.get(prop.getEq().getName()), new FloatTerm(prop.getProb())};
+			term = new CompoundTerm(AtomTerm.get("kProp"), argsK);
+			break;
+		case NEGATION:
+			break;
+		case NOTSHARED:
+			Term[] argsSh = {AtomTerm.get(prop.getOwner().toString()), AtomTerm.get(prop.getVar().toString())};
+			term = new CompoundTerm(AtomTerm.get("notShared"), argsSh);
+			break;
+		case NOTSTORED:
+			Term[] argsSt = {AtomTerm.get(prop.getOwner().toString()), AtomTerm.get(prop.getVar().toString()), new IntegerTerm(prop.getBound())};
+			term = new CompoundTerm(AtomTerm.get("notStored"), argsSt);
+			break;
+		default:
+			break;
+		}
+		return term;
 	}
 
 }
