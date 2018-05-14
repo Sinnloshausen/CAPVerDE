@@ -481,7 +481,7 @@ public class RulesOfInferenceParserBottomup implements Parser, Serializable {
 			// Rule ST2
 			System.out.println(spacing + "Trying Rule ST2...");
 			TraceBuffer.logMessage(statement, "Trying Rule ST2...", recurseDepth, LogType.INFO);
-			if (counter(statement.getOwner(), statement.getVar()) < statement.getBound()) {
+			if (counter(statement.getOwner(), statement.getVar()) <= statement.getBound()) {
 				resultHistory.put(statement, true);
 				System.out.println(spacing + "Rule ST2 applied for statement: " + statement);
 				TraceBuffer.logMessage(

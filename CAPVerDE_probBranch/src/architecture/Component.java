@@ -2,7 +2,9 @@ package architecture;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import utils.SmtCleanup;
@@ -26,6 +28,7 @@ public class Component implements Serializable {
 	private Set<Deduction> deducSet;
 	private Set<Deduction> deductionCapability;
 	private Set<Equation> eqSet;
+	private Map<Variable, Integer> counter;
 
 	/**
 	 * The full Constructor typically invoked for an already complete component
@@ -48,7 +51,9 @@ public class Component implements Serializable {
 		varSet = new LinkedHashSet<Variable>();
 		eqSet = new LinkedHashSet<Equation>();
 		deductionCapability = new LinkedHashSet<Deduction>();
+		counter = new HashMap<Variable, Integer>();
 		collectVars();
+		//makeCounter();
 	}
 
 	/**
@@ -186,6 +191,8 @@ public class Component implements Serializable {
 		actions.add(action);
 		// reevaluate the involved variables
 		collectVars();
+		// also update the counter values
+		//makeCounter();
 	}
 
 	/**
@@ -217,6 +224,42 @@ public class Component implements Serializable {
 			}
 		}
 	}
+
+	/*
+	private void makeCounter() {
+		// TODO test this!
+		for (Variable var : varSet) {
+			int count = 0;
+			int maxCount = 0;
+			for (Action a : actions) {
+				switch (a.getAction()) {
+				case CHECK:
+					for (Equation e : a.getEqSet()) {
+						if (e.getAtoms().contains(var)) {
+							count++;
+						}
+					}
+					break;
+				case COMPUTE:
+					if (a.getEq().getAtoms().contains(var)) {
+						count++;
+					}
+					break;
+				case DELETE:
+					if (a.getVar().equals(var)) {
+						count = 0;
+					}
+					break;
+				default:
+					break;
+				}
+				if (count > maxCount) {
+					maxCount = count;
+				}
+			}
+			counter.put(var, maxCount);
+		}
+	}*/
 
 	// Getter and Setter methods
 	public String getName() {
@@ -277,5 +320,13 @@ public class Component implements Serializable {
 
 	public void setDeductionCapability(Set<Deduction> deductionCapability) {
 		this.deductionCapability = deductionCapability;
+	}
+
+	public int getCounter(Variable var) {
+		return counter.get(var);
+	}
+
+	public void setCounter(Variable var, int val) {
+		counter.put(var, val);
 	}
 }

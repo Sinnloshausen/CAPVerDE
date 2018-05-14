@@ -130,6 +130,7 @@ public class ArchitectureFunctions implements Serializable {
 		if (property != null) {
 			//TODO maybe use prolog
 			boolean res = prologSolver.verify(property);
+			System.out.println("Prolog return: " + res);
 			//TODO use new parser when finished
 			return parserBu.verifyStatement(property, 0);
 		}
