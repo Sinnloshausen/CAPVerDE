@@ -22,9 +22,9 @@ import architecture.Term.TermType;
 import architecture.Trust;
 import architecture.Variable;
 import gui.Gui.MessageType;
+import properties.PrologParser;
 import properties.Property;
 import properties.RulesOfInferenceParserBottomup;
-import solver.PrologHandler;
 import utils.SaveLoadArch;
 import utils.TraceBuffer;
 import utils.ArchLoader;
@@ -49,7 +49,7 @@ public class ArchitectureFunctions implements Serializable {
 	 * Smart Energy Metering
 	 */
 	public static enum CaseStudy {
-		SEM;
+		SEM, AW;
 
 		/**
 		 * Method to get the enum objects from a string.
@@ -60,6 +60,8 @@ public class ArchitectureFunctions implements Serializable {
 		public static CaseStudy getEnum(String value) {
 			if (value.equals("Smart Energy Metering")) {
 				return SEM;
+			} else if (value.equals("AccuWeather iOS App")) {
+				return AW;
 			} else {
 				throw new IllegalArgumentException();
 			}
@@ -70,6 +72,8 @@ public class ArchitectureFunctions implements Serializable {
 			switch (this) {
 			case SEM:
 				return "Smart Energy Metering";
+			case AW:
+				return "AccuWeather iOS App";
 			default:
 				return "";
 			}
@@ -90,7 +94,7 @@ public class ArchitectureFunctions implements Serializable {
 	private Architecture arch;
 	//private RulesOfInferenceParserTopdown parserTd;
 	private RulesOfInferenceParserBottomup parserBu;
-	private PrologHandler prologSolver;
+	private PrologParser prologSolver;
 	private Set<Property> pSet;
 
 	/**
@@ -129,7 +133,7 @@ public class ArchitectureFunctions implements Serializable {
 		// verify the property
 		if (property != null) {
 			//TODO maybe use prolog
-			boolean res = prologSolver.verify(property);
+			boolean res = prologSolver.verifyStatement(property, 0);
 			System.out.println("Prolog return: " + res);
 			//TODO use new parser when finished
 			return parserBu.verifyStatement(property, 0);
@@ -184,7 +188,7 @@ public class ArchitectureFunctions implements Serializable {
 		// create the verifier
 		//parserTd = new RulesOfInferenceParserTopdown(arch);
 		parserBu = new RulesOfInferenceParserBottomup(arch);
-		prologSolver = new PrologHandler(arch);
+		prologSolver = new PrologParser(arch);
 	}
 
 	/**

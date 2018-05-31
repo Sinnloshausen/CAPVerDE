@@ -157,6 +157,7 @@ public class Gui {
     examples.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 1, 2));
     examples.setText("Example Case Studies");
     examples.add(CaseStudy.SEM.toString());
+    examples.add(CaseStudy.AW.toString());
     // examples.addListener(SWT.DROP_DOWN, event -> updateCaseStudies(archFunc,
     // examples));
 

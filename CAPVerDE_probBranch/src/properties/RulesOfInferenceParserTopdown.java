@@ -21,7 +21,7 @@ import solver.SmtHandler;
  * Parser that implements rules of inference to gather all Has, K and B
  * statements from an Architecture_Class object.
  */
-public class RulesOfInferenceParserTopdown implements Parser, Serializable {
+public class RulesOfInferenceParserTopdown extends Parser implements Serializable {
 
 	/**
 	 * @serial Serial ID for storing architecture objects in files.
@@ -29,7 +29,6 @@ public class RulesOfInferenceParserTopdown implements Parser, Serializable {
 	private static final long serialVersionUID = -6741087571898715105L;
 
 	// class fields
-	private Architecture arch;
 	private List<Property> propertyList;
 	private SmtHandler smt;
 	private int counter;
@@ -43,7 +42,7 @@ public class RulesOfInferenceParserTopdown implements Parser, Serializable {
 	 *          the architecture to parse
 	 */
 	public RulesOfInferenceParserTopdown(Architecture arch) {
-		this.arch = arch;
+		super(arch);
 		counter = 0;
 		propertyList = new ArrayList<Property>();
 		actionLog = new ArrayList<Action>();
@@ -424,4 +423,5 @@ public class RulesOfInferenceParserTopdown implements Parser, Serializable {
 	public void setArch(Architecture arch) {
 		this.arch = arch;
 	}
+
 }

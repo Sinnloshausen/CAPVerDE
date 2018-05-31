@@ -29,6 +29,8 @@ public class Component implements Serializable {
 	private Set<Deduction> deductionCapability;
 	private Set<Equation> eqSet;
 	private Map<Variable, Integer> counter;
+	private Component composition;
+	private boolean hasInstances;
 
 	/**
 	 * The full Constructor typically invoked for an already complete component
@@ -41,13 +43,19 @@ public class Component implements Serializable {
 	 * 			a set of all dependence relations of this component
 	 * @param deducSet
 	 * 			a set of all deductions of this component
+	 * @param composition
+	 * 			the component that is composed of this one
+	 * @param hasInstances
+	 * 			a flag that indicates multiple instances for this component
 	 */
 	public Component(String name, Set<Action> actions, Set<Dep> depSet,
-			Set<Deduction> deducSet) {
+			Set<Deduction> deducSet, Component composition, boolean hasInstances) {
 		this.name = name;
 		this.actions = new LinkedHashSet<Action>(actions);
 		this.depSet = new LinkedHashSet<Dep>(depSet);
 		this.deducSet = new LinkedHashSet<Deduction>(deducSet);
+		this.composition = composition;
+		this.hasInstances = hasInstances;
 		varSet = new LinkedHashSet<Variable>();
 		eqSet = new LinkedHashSet<Equation>();
 		deductionCapability = new LinkedHashSet<Deduction>();
@@ -63,7 +71,7 @@ public class Component implements Serializable {
 	 *          the name of the component
 	 */
 	public Component(String name) {
-		this(name, new LinkedHashSet<Action>(), new LinkedHashSet<Dep>(), new LinkedHashSet<Deduction>());
+		this(name, new LinkedHashSet<Action>(), new LinkedHashSet<Dep>(), new LinkedHashSet<Deduction>(), null, false);
 	}
 
 	/**
@@ -328,5 +336,21 @@ public class Component implements Serializable {
 
 	public void setCounter(Variable var, int val) {
 		counter.put(var, val);
+	}
+	
+	public Component getAssociate() {
+		return composition;
+	}
+	
+	public void setAssociate(Component composition) {
+		this.composition = composition;
+	}
+	
+	public boolean isInstanced() {
+		return hasInstances;
+	}
+	
+	public void setInstanced(boolean hasInstances) {
+		this.hasInstances = hasInstances;
 	}
 }

@@ -6,20 +6,20 @@ import java.util.Set;
 import architecture.Action;
 import architecture.Architecture;
 import solver.SmtHandler;
+import utils.SuccessIndexPair;
 
 /**
  * A bottom-up parser based on SMT solver.
  */
-public class SmtParser implements Parser {
+public class SmtParser extends Parser {
 	
 	// class fields
-	private Architecture arch;
 	private Set<Property> properties;
 	private SmtHandler smt;
 	private List<Action> actionLog;
 	
 	public SmtParser(Architecture arch) {
-		this.arch = arch;
+		super(arch);
 		smt = new SmtHandler(arch);
 	}
 

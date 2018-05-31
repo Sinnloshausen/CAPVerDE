@@ -33,6 +33,7 @@ import gui.ArchitectureFunctions.CaseStudy;
 public class ArchLoader {
 
 	// class fields
+	//########## Smart Home #################
 	// Components
 	private static Component SM = new Component("SM");
 	private static Component MI = new Component("MI");
@@ -179,6 +180,65 @@ public class ArchLoader {
 	private static Property statement2 = new Property(PropertyType.NEGATION, statement2_tmp);
 	//TODO 1 more?
 	private static Set<Property> pSet1 = Stream.of(statement1, statement2).collect(Collectors.toCollection(LinkedHashSet::new));
+	
+	//############## AccuWeather ###############
+	// Components
+		private static Component U = new Component("U");
+		private static Component AW = new Component("AW");
+		private static Component RM = new Component("RM");
+		private static Set<Component> cSet2 = Stream.of(U, AW, RM).collect(Collectors.toCollection(LinkedHashSet::new));
+		// Variables
+		private static Variable location = new Variable("location");
+		private static Variable wifi_info = new Variable("wifi_info");
+		private static Variable weather = new Variable("weather");
+		private static Set<Variable> vSet2 = Stream.of(location, wifi_info, weather).collect(Collectors.toCollection(LinkedHashSet::new));
+		// Terms
+		private static Term termLocation = new Term(TermType.ATOM, location, false);
+		private static Term termWifi_info = new Term(TermType.ATOM, wifi_info, false);
+		private static Term termWeather = new Term(TermType.ATOM, weather, false);
+		private static Term termPhiWifi = new Term(
+				TermType.COMPOSITION, OperatorType.UNARY, Operator.FUNC, "phi", termWifi_info, false);
+		private static Set<Term> tSet2 = Stream.of(
+				termLocation, termWifi_info, termWeather, termPhiWifi).collect(Collectors.toCollection(LinkedHashSet::new));
+		// Equations
+		private static Equation location_phi = new Equation(
+				"location_phi", Type.RELATION, Relation.EQUALITY, termLocation, termPhiWifi);
+		private static Set<Equation> eSet2 = Stream.of(location_phi).collect(Collectors.toCollection(LinkedHashSet::new));
+		// Trusts
+		private static Set<Trust> trustSet2 = new LinkedHashSet<Trust>();
+		// Statements
+		private static Set<architecture.Statement> stSet2 = new LinkedHashSet<architecture.Statement>();
+		// Actions
+		private static Action hasU_location = new Action(ActionType.HAS, U, location);
+		private static Action hasU_wifi_info = new Action(ActionType.HAS, U, wifi_info);
+		private static Action hasAW_weather = new Action(ActionType.HAS, AW, weather);
+		private static Action computeRM_location = new Action(
+				ActionType.COMPUTE, RM, location_phi);
+		private static Action receiveAWU = new Action(
+				ActionType.RECEIVE, AW, U, Collections.emptySet(), Set.of(wifi_info));
+		private static Action receiveRMAW = new Action(
+				ActionType.RECEIVE, RM, AW, Collections.emptySet(), Set.of(wifi_info));
+		private static Action receiveUAW = new Action(
+				ActionType.RECEIVE, U, AW, Collections.emptySet(), Set.of(weather));
+		private static Set<Action> aSet2 = Stream.of(
+				hasU_location, hasU_wifi_info, hasAW_weather, receiveAWU, receiveRMAW, receiveUAW).collect(Collectors.toCollection(LinkedHashSet::new));
+		// Dependencies
+		private static Dep dep = new Dep(location, Set.of(wifi_info), 0.5);
+		private static Set<DependenceRelation> dSet2 = Stream.of(
+				new DependenceRelation(AW, dep), new DependenceRelation(RM, dep)).collect(Collectors.toCollection(LinkedHashSet::new));
+		// Deductions
+		private static DeductionCapability dc_U = new DeductionCapability(U, Set.of(deduc4));
+		private static DeductionCapability dc_AW = new DeductionCapability(AW, Set.of(deduc4));
+		private static DeductionCapability dc_RM = new DeductionCapability(RM, Set.of(deduc4));
+		private static Set<DeductionCapability> dedSet2 = Stream.of(dc_U, dc_AW, dc_RM).collect(Collectors.toCollection(LinkedHashSet::new));
+		// Statements
+		private static Property property_accuracy = new Property(PropertyType.HAS, U, (double)1, weather);
+		private static Property property_tmp = new Property(PropertyType.HAS, AW, 0.001, location);
+		private static Property property_dataMinimisation = new Property(PropertyType.NEGATION, property_tmp);
+		private static Property property_dataMinimisation2 = new Property(PropertyType.NOTSHARED, AW, wifi_info);
+		//TODO 1 more?
+		private static Set<Property> pSet2 = Stream.of(property_accuracy, property_dataMinimisation, property_dataMinimisation2).collect(Collectors.toCollection(LinkedHashSet::new));
+		
 
 	/**
 	 * Method to load one of the case studies.
@@ -192,7 +252,7 @@ public class ArchLoader {
 		// set all the necessary list of the right architecture
 		switch (example) {
 		case SEM:
-			// second case study: smart energy metering
+			// first case study: smart energy metering
 			archFunc.setcSet(cSet1);
 			archFunc.setvSet(vSet1);
 			archFunc.settSet(tSet1);
@@ -204,6 +264,18 @@ public class ArchLoader {
 			archFunc.setdedSet(dedSet1);
 			archFunc.setpSet(pSet1);
 			break;
+		case AW:
+			// second case study: accuweather ios app
+			archFunc.setcSet(cSet2);
+			archFunc.setvSet(vSet2);
+			archFunc.settSet(tSet2);
+			archFunc.seteSet(eSet2);
+			archFunc.settrustSet(trustSet2);
+			archFunc.setstSet(stSet2);
+			archFunc.setaSet(aSet2);
+			archFunc.setdSet(dSet2);
+			archFunc.setdedSet(dedSet2);
+			archFunc.setpSet(pSet2);
 		default:
 			break;
 		}
