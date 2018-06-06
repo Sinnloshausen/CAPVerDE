@@ -158,6 +158,7 @@ public class Gui {
     examples.setText("Example Case Studies");
     examples.add(CaseStudy.SEM.toString());
     examples.add(CaseStudy.AW.toString());
+    examples.add(CaseStudy.PDR.toString());
     // examples.addListener(SWT.DROP_DOWN, event -> updateCaseStudies(archFunc,
     // examples));
 

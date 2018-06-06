@@ -8,6 +8,7 @@ import java.util.List;
 import architecture.Action;
 import architecture.Architecture;
 import architecture.Component;
+import architecture.Composition;
 import architecture.Equation;
 import architecture.Term;
 import architecture.Variable;
@@ -141,8 +142,14 @@ public class Parser {
 					}
 				}
 				// the variable is now owned
-				variablesOwned[compIndex][arch.getVariables().indexOf(
-						action.getEq().getLefthandSide())] = true;
+				variablesOwned[compIndex][arch.getVariables().indexOf(action.getEq().getLefthandSide())] = true;
+				// also own variables from composition
+				for (Composition compos : arch.getCompositions()) {
+					if (compos.getContainer().equals(action.getComponent())) {
+						// the composed component also has access to the variable
+						variablesOwned[arch.getCompList().indexOf(compos.getComponent())][arch.getVariables().indexOf(action.getEq().getLefthandSide())] = true;
+					}
+				}
 				break;
 			case DELETE:
 				// variable
@@ -155,6 +162,13 @@ public class Parser {
 			case HAS:
 				// the variable is now owned
 				variablesOwned[compIndex][arch.getVariables().indexOf(action.getVar())] = true;
+				// also own variables from composition
+				for (Composition compos : arch.getCompositions()) {
+					if (compos.getContainer().equals(action.getComponent())) {
+						// the composed component also has access to the variable
+						variablesOwned[arch.getCompList().indexOf(compos.getComponent())][arch.getVariables().indexOf(action.getVar())] = true;
+					}
+				}
 				break;
 			case RECEIVE:
 				// variables
@@ -169,6 +183,13 @@ public class Parser {
 					}
 					// the variable is now owned
 					variablesOwned[compIndex][arch.getVariables().indexOf(var)] = true;
+					// also own variables from composition
+					for (Composition compos : arch.getCompositions()) {
+						if (compos.getContainer().equals(action.getComponent())) {
+							// the composed component also has access to the variable
+							variablesOwned[arch.getCompList().indexOf(compos.getComponent())][arch.getVariables().indexOf(var)] = true;
+						}
+					}
 				}
 				break;
 			case TRUST:
@@ -181,6 +202,7 @@ public class Parser {
 				break;
 			}
 		}
+
 		return new SuccessIndexPair(true, -1);
 	}
 

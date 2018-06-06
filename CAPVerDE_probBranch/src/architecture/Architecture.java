@@ -30,6 +30,7 @@ public class Architecture implements Serializable {
 	private List<Variable> allVariables;
 	private List<Equation> allEquations;
 	private List<Statement> allStatements;
+	private List<Composition> compositions;
 
 	/**
 	 * The full Constructor of an architecture that is typically only invoked for
@@ -44,13 +45,18 @@ public class Architecture implements Serializable {
 	 *          a list of trust relations between the components
 	 */
 	public Architecture(Set<Component> compList, Set<Action> interCompActions,
-			Set<Trust> trusts) {
+			Set<Trust> trusts, Set<Composition> compositions) {
 		this.compList = new ArrayList<Component>(compList);
 		this.interCompActions = new ArrayList<Action>(interCompActions);
 		if (trusts == null) {
 			this.trusts = new ArrayList<Trust>();
 		} else {
 			this.trusts = new ArrayList<Trust>(trusts);
+		}
+		if (compositions == null) {
+			this.compositions = new ArrayList<Composition>();
+		} else {
+			this.compositions = new ArrayList<Composition>(compositions);
 		}
 		allProperties = new ArrayList<Property>();
 		allVariables = new ArrayList<Variable>();
@@ -119,7 +125,7 @@ public class Architecture implements Serializable {
 	 *          the list of components
 	 */
 	public Architecture(Set<Component> compList) {
-		this(compList, new LinkedHashSet<Action>(), new LinkedHashSet<Trust>());
+		this(compList, new LinkedHashSet<Action>(), new LinkedHashSet<Trust>(), new LinkedHashSet<Composition>());
 	}
 
 	/**
@@ -323,6 +329,10 @@ public class Architecture implements Serializable {
 
 	public void setTrusts(List<Trust> trusts) {
 		this.trusts = trusts;
+	}
+
+	public List<Composition> getCompositions() {
+		return compositions;
 	}
 
 	public List<Variable> getVariables() {

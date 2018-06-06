@@ -17,7 +17,7 @@ public class Action implements Serializable {
 	 * All possible actions that a component can perform.
 	 */
 	public enum ActionType {
-		HAS, COMPUTE, RECEIVE, CHECK, VERIF_P, VERIF_A, DELETE, TRUST
+		HAS, COMPUTE, RECEIVE, CHECK, VERIF_P, VERIF_A, DELETE, TRUST, SPOTCHECK
 	}
 
 	// Class fields
@@ -173,6 +173,21 @@ public class Action implements Serializable {
 	 */
 	public Action(ActionType action, Component component, Component comPartner) {
 		this(action, component, null, null, comPartner, null, null, null, null, null);
+	}
+	
+	/**
+	 * Constructor called for Action = Spotcheck.
+	 * @param action
+	 * 			the action to perform (spotcheck)
+	 * @param component
+	 * 			the checking component
+	 * @param comPartner
+	 * 			the checked component
+	 * @param vars
+	 * 			the variables that are spotchecked
+	 */
+	public Action(ActionType action, Component component, Component comPartner, Set<Variable> vars) {
+		this(action, component, null, null, comPartner, vars, null, null, null, null);
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import architecture.Action.ActionType;
 import architecture.Architecture;
 import architecture.Attest;
 import architecture.Component;
+import architecture.Composition;
 import architecture.Deduction;
 import architecture.DeductionCapability;
 import architecture.Dep;
@@ -49,7 +50,7 @@ public class ArchitectureFunctions implements Serializable {
 	 * Smart Energy Metering
 	 */
 	public static enum CaseStudy {
-		SEM, AW;
+		SEM, AW, PDR;
 
 		/**
 		 * Method to get the enum objects from a string.
@@ -62,6 +63,8 @@ public class ArchitectureFunctions implements Serializable {
 				return SEM;
 			} else if (value.equals("AccuWeather iOS App")) {
 				return AW;
+			} else if (value.equals("Patient Data Register")) {
+				return PDR;
 			} else {
 				throw new IllegalArgumentException();
 			}
@@ -74,6 +77,8 @@ public class ArchitectureFunctions implements Serializable {
 				return "Smart Energy Metering";
 			case AW:
 				return "AccuWeather iOS App";
+			case PDR:
+				return "Patient Data Register";
 			default:
 				return "";
 			}
@@ -86,6 +91,7 @@ public class ArchitectureFunctions implements Serializable {
 	private Set<Term> tSet;
 	private Set<Equation> eSet;
 	private Set<Trust> trustSet;
+	private Set<Composition> composSet;
 	private Set<Action> aSet;
 	private Set<Statement> stSet;
 	private Set<DependenceRelation> dSet;
@@ -106,6 +112,7 @@ public class ArchitectureFunctions implements Serializable {
 		tSet = new LinkedHashSet<Term>();
 		eSet = new LinkedHashSet<Equation>();
 		trustSet = new LinkedHashSet<Trust>();
+		composSet = new LinkedHashSet<Composition>();
 		aSet = new LinkedHashSet<Action>();
 		stSet = new LinkedHashSet<Statement>();
 		dSet = new LinkedHashSet<DependenceRelation>();
@@ -184,7 +191,7 @@ public class ArchitectureFunctions implements Serializable {
 			ded.getComp().setDeducSet(ded.getDeducSet());
 		}
 		// create arch
-		arch = new Architecture(cSet, interComponentActions, trustSet);
+		arch = new Architecture(cSet, interComponentActions, trustSet, composSet);
 		// create the verifier
 		//parserTd = new RulesOfInferenceParserTopdown(arch);
 		parserBu = new RulesOfInferenceParserBottomup(arch);
@@ -1256,6 +1263,10 @@ public class ArchitectureFunctions implements Serializable {
 
 	public void settrustSet(Set<Trust> trusts) {
 		this.trustSet = trusts;
+	}
+
+	public void setcomposSet(Set<Composition> compos) {
+		this.composSet = compos;
 	}
 
 	public Set<Action> getaSet() {

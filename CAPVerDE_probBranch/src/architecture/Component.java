@@ -30,7 +30,7 @@ public class Component implements Serializable {
 	private Set<Equation> eqSet;
 	private Map<Variable, Integer> counter;
 	private Component composition;
-	private boolean hasInstances;
+	private String instanceIndex;
 
 	/**
 	 * The full Constructor typically invoked for an already complete component
@@ -49,19 +49,31 @@ public class Component implements Serializable {
 	 * 			a flag that indicates multiple instances for this component
 	 */
 	public Component(String name, Set<Action> actions, Set<Dep> depSet,
-			Set<Deduction> deducSet, Component composition, boolean hasInstances) {
+			Set<Deduction> deducSet, Component composition, String instanceIndex) {
 		this.name = name;
 		this.actions = new LinkedHashSet<Action>(actions);
 		this.depSet = new LinkedHashSet<Dep>(depSet);
 		this.deducSet = new LinkedHashSet<Deduction>(deducSet);
 		this.composition = composition;
-		this.hasInstances = hasInstances;
+		this.instanceIndex = instanceIndex;
 		varSet = new LinkedHashSet<Variable>();
 		eqSet = new LinkedHashSet<Equation>();
 		deductionCapability = new LinkedHashSet<Deduction>();
 		counter = new HashMap<Variable, Integer>();
 		collectVars();
 		//makeCounter();
+	}
+	
+	/**
+	 * The Constructor for components with only a name and the instances flag.
+	 * 
+	 * @param name
+	 *          the name of the component
+	 * @param hasInstances
+	 * 			the flag indicating instances
+	 */
+	public Component(String name, String instanceIndex) {
+		this(name, new LinkedHashSet<Action>(), new LinkedHashSet<Dep>(), new LinkedHashSet<Deduction>(), null, instanceIndex);
 	}
 
 	/**
@@ -71,7 +83,7 @@ public class Component implements Serializable {
 	 *          the name of the component
 	 */
 	public Component(String name) {
-		this(name, new LinkedHashSet<Action>(), new LinkedHashSet<Dep>(), new LinkedHashSet<Deduction>(), null, false);
+		this(name, new LinkedHashSet<Action>(), new LinkedHashSet<Dep>(), new LinkedHashSet<Deduction>(), null, null);
 	}
 
 	/**
@@ -346,11 +358,11 @@ public class Component implements Serializable {
 		this.composition = composition;
 	}
 	
-	public boolean isInstanced() {
-		return hasInstances;
+	public String getInstance() {
+		return instanceIndex;
 	}
 	
-	public void setInstanced(boolean hasInstances) {
-		this.hasInstances = hasInstances;
+	public void setInstanced(String instanceIndex) {
+		this.instanceIndex = instanceIndex;
 	}
 }
